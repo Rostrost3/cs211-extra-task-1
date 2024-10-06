@@ -17,3 +17,5 @@ double get_hours(double);
 double get_minutes(double);
 
 double get_seconds(double);
+
+double time_to_utc(int, double);
