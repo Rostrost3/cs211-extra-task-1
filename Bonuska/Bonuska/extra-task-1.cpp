@@ -51,7 +51,7 @@ double hours_difference(double time_1, double time_2)
 double to_float_hours(int hours, int minutes, int seconds)
 {
     assert(minutes >= 0 && minutes < 60 && seconds >= 0 && seconds < 60 && hours >= 0);
-    return hours + minutes / 60 + seconds / 3600;
+    return hours + (minutes / 60.0) + (seconds / 3600.0);
 
     /*
         Return the total number of hours in the specified number
@@ -143,7 +143,7 @@ double get_minutes(double seconds) {
 double get_seconds(double seconds) {
     assert(seconds >= 0);
     double x, y;
-    y = modf(seconds - get_minutes(seconds) * 60, &x);
+    y = modf(seconds - get_hours(seconds) * 3600 - get_minutes(seconds) * 60, &x);
     return x;
 }
 
@@ -181,7 +181,8 @@ double time_to_utc(int utc_offset, double time)
 double time_from_utc(int utc_offset, double time)
 {
     assert(time >= 0);
-    return to_24_hour_clock(time + utc_offset);
+    double s = time + utc_offset;
+    return (s > 0) ? to_24_hour_clock(s) : to_24_hour_clock(24 + s);
     /*
         Return UTC time in time zone utc_offset.
 
