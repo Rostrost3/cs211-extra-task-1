@@ -1,0 +1,7 @@
+#pragma once
+
+#include <iostream>
+#include <assert.h>
+#include <cmath>
+
+double seconds_difference(double, double);
